@@ -13,10 +13,7 @@ export const VerifyJWT = asyncHandler(async (req, _, next) => {
       throw new ApiError(400, "Not authenticated");
     }
 
-    const decodedUser = await jwt.verify(
-      token,
-      process.env.ACCESS_TOKEN_SECRET
-    );
+    const decodedUser = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
     const user = User.findOne(decodedUser?._id).select(
       "-password -refreshToken"

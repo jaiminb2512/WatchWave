@@ -33,7 +33,7 @@ const LoginUser = asyncHandler(async (req, res) => {
   const { RefreshToken, AccessToken } =
     await GenerateAccessAndRefreshToken(existedUser);
 
-  const resUser = existedUser.toObject()
+  const resUser = existedUser.toObject();
   delete resUser.password;
 
   const Options = {
@@ -45,7 +45,15 @@ const LoginUser = asyncHandler(async (req, res) => {
     .status(200)
     .cookie("accessToken", AccessToken, Options)
     .cookie("refreshToken", RefreshToken, Options)
-    .json( new ApiResponse( 200, { user : resUser}, AccessToken, RefreshToken, 'User Loggedin Successfully'));
+    .json(
+      new ApiResponse(
+        200,
+        { user: resUser },
+        AccessToken,
+        RefreshToken,
+        "User Loggedin Successfully"
+      )
+    );
 });
 
 export default LoginUser;
